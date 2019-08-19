@@ -1,8 +1,9 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { User } from '@/models';
 import { AlertService, UserService, AuthenticationService } from '@/services';
@@ -46,10 +47,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.profileForm = this.formBuilder.group( {
             firstName: [this.userProfile.firstName, Validators.required],
             lastName: [this.userProfile.lastName, Validators.required],
-            userName: [this.userProfile.userName, Validators.required],
+            userName: [this.userProfile.userName, [Validators.required, Validators.email]],
             password: [this.userProfile.password, [Validators.required, Validators.minLength(8)]],
             phone: [this.userProfile.phone, Validators.required],
-            birthday: [this.userProfile.birthday, Validators.required],
+            birthday: [this.userProfile.birthday, [Validators.required, this.dateValidator()]],
             address: this.formBuilder.array([])
         } )
 
@@ -68,6 +69,17 @@ export class HomeComponent implements OnInit, OnDestroy {
             }));
         });
         return formArray;
+    }
+
+    dateValidator(format = "YYYY-MM-DD"): any {
+        return (control: FormControl): { [key: string]: any } => {
+          const val = moment(control.value, format, true);
+          if (!val.isValid()) {
+            return { invalidDate: true };
+          }
+      
+          return null;
+        };
     }
 
     fileUpload(files: any) {

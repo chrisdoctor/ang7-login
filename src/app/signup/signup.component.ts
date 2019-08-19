@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { AlertService, UserService, AuthenticationService } from '@/services';
 
@@ -38,10 +39,10 @@ export class SignupComponent implements OnInit {
         this.signupForm = this.formBuilder.group( {
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            userName: ['', Validators.required],
+            userName: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(8)]],
             phone: ['', Validators.required],
-            birthday: ['', Validators.required],
+            birthday: ['', [Validators.required, this.dateValidator()]],
             address: this.formBuilder.array([
                 this.formBuilder.group({
                     street1: ['', Validators.required],
@@ -52,6 +53,17 @@ export class SignupComponent implements OnInit {
                 })
             ])
         } )
+    }
+
+    dateValidator(format = "YYYY-MM-DD"): any {
+        return (control: FormControl): { [key: string]: any } => {
+          const val = moment(control.value, format, true);
+          if (!val.isValid()) {
+            return { invalidDate: true };
+          }
+      
+          return null;
+        };
     }
 
     get AddressForm() {
@@ -89,6 +101,7 @@ export class SignupComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
 
+        console.log(this.signupForm);
         if (this.signupForm.invalid) {
             return;
         }
