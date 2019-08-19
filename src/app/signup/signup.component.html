@@ -1,0 +1,104 @@
+﻿<h2>Sign Up Form</h2>
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="userName">Username</label>
+        <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" />
+        <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+            <div *ngIf="f.userName.errors.required">Username is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+            <div *ngIf="f.password.errors.minlength">Password must be at least 8 characters</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Phone Number</label>
+        <input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+            <div *ngIf="f.phone.errors.required">Phone Number is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Birthday</label>
+        <input type="text" formControlName="birthday" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.birthday.errors }" />
+        <div *ngIf="submitted && f.birthday.errors" class="invalid-feedback">
+            <div *ngIf="f.birthday.errors.required">Birthday is required</div>
+        </div>
+    </div>
+    <br>
+    <div style="font-weight:400; font-size:1rem">Address</div>
+    <br>
+    <button (click)="addAddress();" class="btn btn-info">Add address</button>
+    <br><br>
+    <div formArrayName="address">
+        <div *ngFor="let address of AddressForm.controls; let i = index;" [formGroupName]="i" style="border: 1px solid #ced4da; padding:15px; border-radius: .25rem;">
+            <div class="form-group">
+                <label for="street1">Street Line 1</label>
+                <input type="text" class="form-control" formControlName="street1" [ngClass]="{ 'is-invalid': submitted && f.address.controls[i].controls.street1.errors }" />
+                <div *ngIf="submitted && f.address.controls[i].controls.street1.errors" class="invalid-feedback">
+                    <div *ngIf="f.address.controls[i].controls.street1.errors.required">Street Line 1 is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="street2">Street Line 2</label>
+                <input type="text" class="form-control" formControlName="street2" />
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" class="form-control" formControlName="city" [ngClass]="{ 'is-invalid': submitted && f.address.controls[i].controls.city.errors }">
+                <div *ngIf="submitted && f.address.controls[i].controls.city.errors" class="invalid-feedback">
+                    <div *ngIf="f.address.controls[i].controls.city.errors.required">City is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="country">Country</label>
+                <input type="text" class="form-control" formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.address.controls[i].controls.country.errors }">
+                <div *ngIf="submitted && f.address.controls[i].controls.country.errors" class="invalid-feedback">
+                    <div *ngIf="f.address.controls[i].controls.country.errors.required">Country is required</div>
+                </div>                
+            </div>
+            <div class="form-group">
+                <label for="postcode">Postal Code</label>
+                <input type="text" class="form-control" formControlName="postcode" [ngClass]="{ 'is-invalid': submitted && f.address.controls[i].controls.postcode.errors }">
+                <div *ngIf="submitted && f.address.controls[i].controls.postcode.errors" class="invalid-feedback">
+                    <div *ngIf="f.address.controls[i].controls.postcode.errors.required">Postal Code is required</div>
+                </div>                
+            </div>
+            <button (click)="deleteAddress(i);" class="btn btn-link">Delete Address</button>
+            <br>
+        </div>
+        <br>
+    </div>
+    <br>
+    <div tyle="font-weight:400; font-size:1rem">Attachment</div>
+    <br>
+    <input #file type="file" accept='image/*' (change)="fileUpload(file.files)" style="display:none"/>
+    <button type="button" (click)="file.click()" class="btn btn-info">Select file</button>
+    <br><br>
+    <img [src]="imgURL" height="200" *ngIf="imgURL">
+    <br>
+    <hr>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">Sign up</button>
+        <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <a routerLink="/login" class="btn btn-link">Cancel</a>
+    </div>
+</form>

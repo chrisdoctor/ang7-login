@@ -1,0 +1,16 @@
+﻿<!-- nav -->
+<nav class="navbar navbar-expand navbar-light bg-light" *ngIf="currentUser">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/">Home</a>
+        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+    </div>
+</nav>
+
+<br>
+<div class="row">
+    <div class="col-sm-4 offset-sm-1">
+        <alert></alert>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<br>
