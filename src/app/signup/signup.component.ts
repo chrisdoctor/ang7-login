@@ -101,7 +101,6 @@ export class SignupComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
 
-        console.log(this.signupForm);
         if (this.signupForm.invalid) {
             window.scrollTo({top: 0, behavior: 'smooth'});
             return;
