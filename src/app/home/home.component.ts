@@ -130,6 +130,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         // stop here if form is invalid
         if (this.profileForm.invalid) {
+            window.scrollTo({top: 0, behavior: 'smooth'});
             return;
         }
 
@@ -142,7 +143,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 data => {
                     this.alertService.success('User information saved', true);
                     this.loading = false;
-                    window.scrollTo(0, 0);
+                    window.scrollTo({top: 0, behavior: 'smooth'});
                 },
                 error => {
                     this.alertService.error(error);
