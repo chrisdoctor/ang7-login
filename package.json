@@ -9,8 +9,7 @@
         "ng": "ng",
         "build": "webpack --mode production",
         "start-dev": "webpack-dev-server --mode development --open",
-        "start": "node server.js",
-        "postinstall": "ng build — aot — prod"
+        "start": "node server.js"
     },
     "dependencies": {
         "@angular/common": "^7.0.1",
