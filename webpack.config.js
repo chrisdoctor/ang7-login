@@ -12,7 +12,7 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
-                test: /\.(html|css|js)$/,
+                test: /\.(html|css)$/,
                 loader: 'raw-loader'
             },
         ]
