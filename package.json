@@ -1,9 +1,15 @@
 {
     "name": "trusted-test",
     "version": "1.0.0",
+    "engines": {
+        "node": "10.16.0",
+        "npm": "6.9.0"
+    },
     "scripts": {
         "build": "webpack --mode production",
-        "start": "webpack-dev-server --mode development --open"
+        "start-dev": "webpack-dev-server --mode development --open",
+        "start": "node server.js",
+        "postinstall": "ng build — aot — prod"
     },
     "dependencies": {
         "@angular/common": "^7.0.1",
@@ -16,6 +22,7 @@
         "@angular/router": "^7.0.1",
         "@ng-bootstrap/ng-bootstrap": "^5.1.0",
         "core-js": "^2.5.7",
+        "express": "^4.17.1",
         "rxjs": "^6.3.3",
         "zone.js": "^0.8.26"
     },
