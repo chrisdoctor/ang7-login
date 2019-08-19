@@ -7,8 +7,7 @@
     },
     "scripts": {
         "ng": "ng",
-        "build": "ng build",
-        "build-dev": "webpack --mode production",
+        "build": "webpack --mode production",
         "start-dev": "webpack-dev-server --mode development --open",
         "start": "node server.js",
         "postinstall": "ng build — aot — prod"
