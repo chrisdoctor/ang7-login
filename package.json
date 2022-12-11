@@ -21,7 +21,7 @@
         "@angular/router": "^7.0.1",
         "@ng-bootstrap/ng-bootstrap": "^5.1.0",
         "core-js": "^2.5.7",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "moment": "^2.24.0",
         "rxjs": "^6.3.3",
         "zone.js": "^0.8.26"
